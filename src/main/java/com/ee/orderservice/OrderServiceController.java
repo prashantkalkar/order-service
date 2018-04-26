@@ -11,7 +11,7 @@ public class OrderServiceController {
     @PostMapping(path = "/order", consumes = "application/json", produces = "application/json")
     public String placeOrder(@RequestBody OrderDetails orderDetails) {
         RestTemplate restTemplate = new RestTemplate();
-        User userDetails = restTemplate.getForObject("http://localhost:8080/user/myUserId", User.class);
+        User userDetails = restTemplate.getForObject("http://localhost:8080/user/" + orderDetails.getUserId(), User.class);
         System.out.println("User details obtained: " + userDetails);
 
         return "{\"orderId\" : \"7998289398179\"}";
