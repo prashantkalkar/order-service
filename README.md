@@ -6,8 +6,7 @@ This is the consumer service for CDC expert talk.
 ### /order POST request:
 ```
 curl -X POST \
-  http://localhost:9000/order
-  -H 'cache-control: no-cache' 
+  http://localhost:9000/order 
   -H 'content-type: application/json'
   -d '{
 	"productId":"1",
