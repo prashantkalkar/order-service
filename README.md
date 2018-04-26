@@ -26,3 +26,8 @@ curl -X POST \
     "orderId": "7998289398179"
 }
 ```
+
+## How to run CDC test:
+```mvn clean install``` or ```mvn test```
+
+It will create Pact files in target\pacts folder
