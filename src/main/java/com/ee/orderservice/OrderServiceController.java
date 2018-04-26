@@ -18,15 +18,30 @@ public class OrderServiceController {
     }
 
     public static class OrderDetails {
-
         private String productId;
         private String quantity;
         private String userId;
+
+        public OrderDetails() {
+            // default constructor for json conversion.
+        }
 
         public OrderDetails(String productId, String quantity, String userId) {
             this.productId = productId;
             this.quantity = quantity;
             this.userId = userId;
+        }
+
+        public String getProductId() {
+            return productId;
+        }
+
+        public String getQuantity() {
+            return quantity;
+        }
+
+        public String getUserId() {
+            return userId;
         }
 
         @Override
