@@ -1,0 +1,15 @@
+node {
+    checkout scm
+
+    stage('Build') {
+        sh 'mvn clean install -DskipTests'
+    }
+
+    stage('Test') {
+        echo 'test'
+    }
+
+    stage('Deploy') {
+        echo 'deploy'
+    }
+}
