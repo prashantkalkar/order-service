@@ -5,6 +5,11 @@ node {
         sh 'mvn clean install'
     }
 
+    stage('build and release artifact') {
+        sh 'mvn -Dresume=false -DdryRun=true release:prepare -Darguments="-DskipTests"'
+        sh 'mvn -Dresume=false release:prepare release:perform -Darguments="-DskipTests"'
+    }
+
     stage('Publish Pact to pact broker') {
         echo 'test'
     }
