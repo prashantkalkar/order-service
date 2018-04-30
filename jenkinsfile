@@ -13,7 +13,7 @@ node {
     stage('Publish Pact to pact broker') {
         def pactBrockerCli = "/usr/share/jenkins/ref/pact/bin/pact-broker"
         def artifactFile = findFiles glob: '**/order-service*.jar'
-        def m = (artifactFile[0].name =~ /^order-service-([0-9\.]+-SNAPSHOT).jar/)
+        def m = (artifactFile[0].name =~ /^order-service-([0-9\.]+).jar/)
         def versionNo = m.find()?m.group(1):"not matched"
         sh "${pactBrockerCli} publish target/pacts --consumer-app-version=${versionNo} --broker-base-url=http://broker_app"
     }
