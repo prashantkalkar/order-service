@@ -36,7 +36,7 @@ public class OrderServiceTest {
     private TestRestTemplate restTemplate;
 
     @Rule
-    public PactProviderRuleMk2 mockDepartmentProvider = new PactProviderRuleMk2("user_service", "localhost", 8080, this);
+    public PactProviderRuleMk2 mockDepartmentProvider = new PactProviderRuleMk2("user_service", "localhost", 8888, this);
 
     /**
      * Setup the department mock server. Method name can be anything but must be annotated with @pact
