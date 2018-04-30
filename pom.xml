@@ -25,14 +25,14 @@
         </downloadUrl>
         <repository>
             <uniqueVersion>false</uniqueVersion>
-            <id>releases</id>
+            <id>nexus</id>
             <name>local-nexus-releases</name>
             <url>http://mynexus:8081/nexus/content/repositories/releases/</url>
             <layout>default</layout>
         </repository>
         <snapshotRepository>
             <uniqueVersion>true</uniqueVersion>
-            <id>snapshots</id>
+            <id>nexus</id>
             <name>local-nexus-snapshot-releases</name>
             <url>http://mynexus:8081/nexus/content/repositories/snapshots/</url>
             <layout>default</layout>
