@@ -1,5 +1,5 @@
 node {
-    checkout scm
+    checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: 'master']], submoduleCfg: []])
 
     stage('Build & Test') {
         sh 'mvn clean install'
