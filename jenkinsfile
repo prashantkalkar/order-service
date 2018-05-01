@@ -12,6 +12,7 @@ node {
     stage('Build & Test') {
         if(currentBuild.result != 'ABORTED' && currentBuild.result != 'FAILURE') {
             sh 'mvn clean install'
+            stash includes: 'target/pacts/*.*', name: 'pact_files'
         }
     }
 
@@ -24,8 +25,9 @@ node {
 
     stage('Publish Pact to pact broker') {
         if(currentBuild.result != 'ABORTED' && currentBuild.result != 'FAILURE') {
+            unstash 'pact_files'
             def pactBrockerCli = "/usr/share/jenkins/ref/pact/bin/pact-broker"
-            def artifactFile = findFiles glob: '**/order-service*.jar'
+            def artifactFile = findFiles glob: 'target/order-service*.jar'
             def versionNo = artifactFile[0].name.minus("order-service-").minus(".jar")
             sh "${pactBrockerCli} publish target/pacts --consumer-app-version=${versionNo} --broker-base-url=http://broker_app"
         }
