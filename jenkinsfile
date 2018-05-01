@@ -1,24 +1,39 @@
 node {
     checkout scm
 
+    stage('abort-on-maven-release-commit') {
+        def latestCommitMessage = sh script: 'git log -n 1 --pretty=format:"%s"', returnStdout: true
+        if (latestCommitMessage == '[maven-release-plugin] prepare for next development iteration') {
+            currentBuild.result = 'ABORTED'
+            return
+        }
+    }
+
     stage('Build & Test') {
-        sh 'mvn clean install'
+        if(currentBuild.result != 'ABORTED' && currentBuild.result != 'FAILURE') {
+            sh 'mvn clean install'
+        }
     }
 
     stage('build and release artifact') {
-        sh 'mvn -Dresume=false -DdryRun=true release:prepare -Darguments="-DskipTests"'
-        sh 'mvn -Dresume=false release:prepare release:perform -Darguments="-DskipTests"'
+        if(currentBuild.result != 'ABORTED' && currentBuild.result != 'FAILURE') {
+            sh 'mvn -Dresume=false -DdryRun=true release:prepare -Darguments="-DskipTests"'
+            sh 'mvn -Dresume=false release:prepare release:perform -Darguments="-DskipTests"'
+        }
     }
 
     stage('Publish Pact to pact broker') {
-        def pactBrockerCli = "/usr/share/jenkins/ref/pact/bin/pact-broker"
-        def artifactFile = findFiles glob: '**/order-service*.jar'
-        def m = artifactFile[0].name =~ /^order-service-([0-9\.]+).jar/
-        def versionNo = m.find()?m.group(1):"not matched"
-        sh "${pactBrockerCli} publish target/pacts --consumer-app-version=${versionNo} --broker-base-url=http://broker_app"
+        if(currentBuild.result != 'ABORTED' && currentBuild.result != 'FAILURE') {
+            def pactBrockerCli = "/usr/share/jenkins/ref/pact/bin/pact-broker"
+            def artifactFile = findFiles glob: '**/order-service*.jar'
+            def versionNo = artifactFile[0].name.minus("order-service-").minus(".jar")
+            sh "${pactBrockerCli} publish target/pacts --consumer-app-version=${versionNo} --broker-base-url=http://broker_app"
+        }
     }
 
     stage('Deploy') {
-        echo 'deploy'
+        if(currentBuild.result != 'ABORTED' && currentBuild.result != 'FAILURE') {
+            echo 'deploy'
+        }
     }
 }
