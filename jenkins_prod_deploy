@@ -1,0 +1,23 @@
+node {
+    properties([parameters([string(defaultValue: '', description: 'Version of order_service to deploy in environment.', name: 'version', trim: true)])])
+
+    stage('deploy-compatibility') {
+        def pactBrokerCli = "/usr/share/jenkins/ref/pact/bin/pact-broker"
+
+        def statusCode = sh script: "${pactBrokerCli} can-i-deploy --pacticipant order_service --version ${params.version} --to PROD --broker-base-url http://broker_app", returnStatus: true
+
+        if(statusCode == 1) {
+            error("The version is not compatible with services running in PROD environment")
+        }
+    }
+
+    stage('Deploy') {
+        echo "Deploying to PROD as compatibility check passed"
+    }
+
+    stage('create-pact-tag') {
+        def pactBrokerCli = "/usr/share/jenkins/ref/pact/bin/pact-broker"
+
+        sh "${pactBrokerCli} create-version-tag --pacticipant order_service --version ${params.version} --tag PROD --broker-base-url http://broker_app"
+    }
+}
