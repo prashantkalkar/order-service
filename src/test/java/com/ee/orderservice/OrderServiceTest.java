@@ -55,6 +55,7 @@ public class OrderServiceTest {
                     a.stringValue("address", "pune");
                     a.stringValue("primeMemberId", "1234");
                     a.stringValue("pickupRequested", "yes");
+                    a.stringValue("officeAddress", "Pune");
                 }).build()).toPact();
     }
 

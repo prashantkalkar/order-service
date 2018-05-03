@@ -61,6 +61,7 @@ public class OrderServiceController {
         private String address;
         private String primeMemberId;
         private String pickupRequested;
+        private String officeAddress;
 
         public void setName(String name) {
             this.name = name;
@@ -97,6 +98,15 @@ public class OrderServiceController {
 
         public void setPickupRequested(String pickupRequested) {
             this.pickupRequested = pickupRequested;
+        }
+
+
+        public String getOfficeAddress() {
+            return officeAddress;
+        }
+
+        public void setOfficeAddress(String officeAddress) {
+            this.officeAddress = officeAddress;
         }
     }
 }
