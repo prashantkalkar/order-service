@@ -13,6 +13,7 @@ public class OrderServiceController {
         RestTemplate restTemplate = new RestTemplate();
         User userDetails = restTemplate.getForObject("http://localhost:8888/user/" + orderDetails.getUserId(), User.class);
         System.out.println("User details obtained: " + userDetails);
+        System.out.println("Some change in consumer code ... ");
 
         return "{\"orderId\" : \"7998289398179\"}";
     }
