@@ -59,9 +59,7 @@ public class OrderServiceController {
         private String name;
         private String email;
         private String address;
-        private String primeMemberId;
-        private String pickupRequested;
-        private String officeAddress;
+
 
         public void setName(String name) {
             this.name = name;
@@ -82,31 +80,6 @@ public class OrderServiceController {
                     ", email='" + email + '\'' +
                     ", address='" + address + '\'' +
                     '}';
-        }
-
-        public String getPrimeMemberId() {
-            return primeMemberId;
-        }
-
-        public void setPrimeMemberId(String primeMemberId) {
-            this.primeMemberId = primeMemberId;
-        }
-
-        public String getPickupRequested() {
-            return pickupRequested;
-        }
-
-        public void setPickupRequested(String pickupRequested) {
-            this.pickupRequested = pickupRequested;
-        }
-
-
-        public String getOfficeAddress() {
-            return officeAddress;
-        }
-
-        public void setOfficeAddress(String officeAddress) {
-            this.officeAddress = officeAddress;
         }
     }
 }
