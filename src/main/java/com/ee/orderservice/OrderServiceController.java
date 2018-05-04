@@ -13,7 +13,6 @@ public class OrderServiceController {
         RestTemplate restTemplate = new RestTemplate();
         User userDetails = restTemplate.getForObject("http://localhost:8888/user/" + orderDetails.getUserId(), User.class);
         System.out.println("User details obtained: " + userDetails);
-        System.out.println("Some change in consumer code ... ");
 
         return "{\"orderId\" : \"7998289398179\"}";
     }
@@ -60,8 +59,6 @@ public class OrderServiceController {
         private String name;
         private String email;
         private String address;
-        private String primeMemberId;
-
 
         public void setName(String name) {
             this.name = name;
@@ -82,14 +79,6 @@ public class OrderServiceController {
                     ", email='" + email + '\'' +
                     ", address='" + address + '\'' +
                     '}';
-        }
-
-        public String getPrimeMemberId() {
-            return primeMemberId;
-        }
-
-        public void setPrimeMemberId(String primeMemberId) {
-            this.primeMemberId = primeMemberId;
         }
     }
 }
