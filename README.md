@@ -30,4 +30,4 @@ curl -X POST \
 ## How to run CDC test:
 ```mvn clean install``` or ```mvn test```
 
-It will create Pact files in target\pacts folder
+It will create Pact files in target\pacts folder.
