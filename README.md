@@ -5,7 +5,7 @@ This is the consumer service for CDC expert talk.
 Make sure you have <strong>jdk</strong> and <strong>mvn</strong> installed and added in the path
 
 ### Run following command to make service up:
-```mvn spring-boot:run```
+```mvn spring-boot:run -Dserver.port=9000```
 
 ## Service endpoints: 
 
