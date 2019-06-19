@@ -12,8 +12,8 @@ Make sure you have <strong>jdk</strong> and <strong>mvn</strong> installed and a
 ### /order POST request:
 ```
 curl -X POST \
-  http://localhost:9000/order 
-  -H 'content-type: application/json'
+  http://localhost:9000/order \
+  -H 'content-type: application/json' \
   -d '{
 	"productId":"1",
 	"quantity":"2",
