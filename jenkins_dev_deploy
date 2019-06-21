@@ -4,7 +4,7 @@ node {
     stage('deploy-compatibility') {
         def pactBrokerCli = "/usr/share/jenkins/ref/pact/bin/pact-broker"
 
-        def statusCode = sh script: "/* TODO - Check Can I deploy this application version */", returnStatus: true
+        def statusCode = sh script: "${pactBrokerCli} can-i-deploy --pacticipant order_service --version ${params.version} --to DEV --broker-base-url http://broker_app", returnStatus: true
 
         if(statusCode == 1) {
             error("The version is not compatible with services running in dev environment")
@@ -18,6 +18,6 @@ node {
     stage('create-pact-tag') {
         def pactBrokerCli = "/usr/share/jenkins/ref/pact/bin/pact-broker"
 
-        sh "/* TODO - Mark the deployed version with tag as DEV */"
+        sh "${pactBrokerCli} create-version-tag --pacticipant order_service --version ${params.version} --tag DEV --broker-base-url http://broker_app"
     }
 }
