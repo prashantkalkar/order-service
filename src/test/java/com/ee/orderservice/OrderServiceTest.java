@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonArray;
 import static io.pactfoundation.consumer.dsl.LambdaDsl.newJsonBody;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
@@ -43,9 +44,17 @@ public class OrderServiceTest {
      */
     @Pact(provider = "user_service", consumer = "order_service")
     public RequestResponsePact createPact(PactDslWithProvider builder) {
-        // TODO - Implement user service mock expectation required for OrderService.
-        // TODO - This will get translated into the contract between order service and user service.
-        return null;
+        return builder.given("User Paresh exists")
+                .uponReceiving("GET user request")
+                .path("/user/"+ USER_ID)
+                .method("GET")
+                .willRespondWith()
+                .status(200)
+                .body(newJsonBody((a)->{
+                    a.stringValue("name","paresh");
+                    a.stringValue("email","paresh@ee.com");
+                    a.stringValue("address","pune");
+                }).build()).toPact();
     }
 
 
